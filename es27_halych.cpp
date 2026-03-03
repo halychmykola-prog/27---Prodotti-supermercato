@@ -41,16 +41,7 @@ void aggiunta(int v[], int &fillcounter)
 
 void visualizzazione(int v[], int dim)
 {
-    cout<<"Prodotti visualizzati:"<<endl;
-    for(int i=0;i<dim;i++)
-    {
-    	cout<<
-        cout<<" ["<<v[i]<<"]";
-        cout<<endl;
-        
-    }
     
-    cout<<endl;
 }
 
 void modifica(int v[], int dim)
@@ -87,13 +78,12 @@ void cancellazione(int v[], int dim)
 // funzione di ricerca
 int ricerca(int v[], int dim)
 {
-    int fval;
-    cout<<"Inserisci il valore posizione del quale vuoi trovare: ";
-    cin>>fval;
+    string fval;
+    getline(cin,fval);
     
     for(int i=0; i<dim; i++)
     {
-        if(v[i]==fval)
+        if(v[i].nome==fval)
             return i;
     }
     return -1;
@@ -139,7 +129,17 @@ int main()
 		    
 		    case 'r':
 		    case 'R':
-		        visualizzazione(vector, dimension);
+		    	cout<<endl;
+		    	cout<<"Prodotti visualizzati:"<<endl;
+    			for(int i=0;i<dimension;i++)
+    			{
+    			cout<<"Prodotto n "<<i<<endl;
+    			cout<<"Nome:"<<v[i].nome<<endl;
+    			cout<<"Prezzo:"<<v[i].prezzo<<endl;
+    			cout<<"Categoria:"<<v[i].categoria<<endl;
+        		cout<<endl;
+    			}
+    
 		        break;
 		        
 		    case 'u':
@@ -155,7 +155,12 @@ int main()
 		        
 		    case 'f':
 		    case 'F':
+		    	cout<<"Inserisci il nome del prodotto posizione del del quale vuoi trovare: ";
 		        int research_result=ricerca(vector, dimension);
+		        if(research_result==-1)
+		        {
+		        	cout<<"Prodotto non è stato trovato";
+				}
 		        cout<<"Posizione: "<<research_result<<endl;
 		        break;
 		    
