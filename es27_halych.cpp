@@ -26,6 +26,8 @@ void aggiunta(prodotto v[], int &fillcounter, string nome, float prezzo, string 
         cout << "Array pieno" << endl;
 }
 
+//modificare parametri della funzione deve essere inserita struct pronta con quale funzionra la aggiunta
+
 void visualizzazione(prodotto v[], int dim)
 {
     cout << endl;
@@ -38,6 +40,8 @@ void visualizzazione(prodotto v[], int dim)
         cout << endl;
     }
 }
+
+//devi usare string per fare output
 
 void modifica(prodotto v[], int dim)
 {
@@ -61,6 +65,8 @@ void modifica(prodotto v[], int dim)
     cout << "Prodotto modificato" << endl;
 }
 
+//deve essere inserito il nome del prodotto e poi deve essere cambiata info edl prodotto
+
 /*
 void cancellazione(int v[], int dim)
 {
@@ -74,6 +80,8 @@ void cancellazione(int v[], int dim)
     v[cpos]=-1;
 }
 */
+
+//cancelazione deve cancellare prodotto e fare shift dei tutti prodotti a sinistra
 
 // funzione di ricerca
 int ricerca(prodotto v[], int dim)
@@ -89,6 +97,8 @@ int ricerca(prodotto v[], int dim)
 
     return -1;
 }
+
+//ricerca: deve essere inserito nome e deve essere restituita la posizione del prodotto
 
 
 int main()
@@ -177,7 +187,7 @@ int main()
 		        int research_result=ricerca(supermarket, dimension);
 		        if(research_result==-1)
 		        {
-		        	cout<<"Prodotto non è stato trovato";
+		        	cout<<"Prodotto non Ã¨ stato trovato";
 				}
 		        cout<<"Posizione: "<<research_result<<endl;
 		        break;
@@ -188,3 +198,4 @@ int main()
     return 0;
 
 }
+
