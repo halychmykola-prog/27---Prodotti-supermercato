@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
 struct prodotto
@@ -7,62 +8,60 @@ struct prodotto
 	float prezzo;
 	string categoria;
 	
-}apple, pear;
+};
 
-void aggiunta(int v[], int &fillcounter)
+
+void aggiunta(prodotto v[], int &fillcounter, string nome, float prezzo, string categoria)
 {
-    string value;
-    cout<<"Inserisci il nome del prodotto: ";
-    getline(cin,value);
-    
-    float price;
-    cout<<"Inserisci il prezzo del prodotto: ";
-    cin>>price;
-    
-    string category;
-    cout<<"Inserisci la categoria del prodotto: ";
-    getline(cin,value);
-
-
-
-    if(fillcounter<100)
+    if(fillcounter < 100)
     {
-        v[fillcounter].nome=value;
-        v[fillcounter].prezzo=price;
-        v[fillcounter].categoria=category;
-        
+        v[fillcounter].nome = nome;
+        v[fillcounter].prezzo = prezzo;
+        v[fillcounter].categoria = categoria;
+
         fillcounter++;
-        cout<<"prodotto aggiunto"<<endl;
+        cout << "Prodotto aggiunto" << endl;
     }
     else
-        cout<<"Array pieno"<<endl;
-    
+        cout << "Array pieno" << endl;
 }
 
-void visualizzazione(int v[], int dim)
+void visualizzazione(prodotto v[], int dim)
 {
-    
+    cout << endl;
+
+    for(int i = 0; i < dim; i++)
+    {
+        cout << "Nome del prodotto: " << v[i].nome << endl;
+        cout << "Prezzo del prodotto: " << v[i].prezzo << endl;
+        cout << "Categoria del prodotto: " << v[i].categoria << endl;
+        cout << endl;
+    }
 }
 
-void modifica(int v[], int dim)
+void modifica(prodotto v[], int dim)
 {
     int modpos;
-    
+
     do
     {
-        cout<<"Inserisci valore del posizione della variabile di array che vuoi cambiare: ";
-        cin>>modpos;
-    }while(modpos>99 || modpos<0);
-    
-    
-    int modval;
-    cout<<"Inserisci valore con quale vuoi restituire il valore della variabile di array che vuoi cambiare: ";
-    cin>>modval;
-    
-    v[modpos]=modval;
-    cout<<endl;
+        cout << "Inserisci posizione del prodotto da modificare: ";
+        cin >> modpos;
+    }while(modpos >= dim || modpos < 0);
+
+    cout << "Nuovo nome: ";
+    cin >> v[modpos].nome;
+
+    cout << "Nuovo prezzo: ";
+    cin >> v[modpos].prezzo;
+
+    cout << "Nuova categoria: ";
+    cin >> v[modpos].categoria;
+
+    cout << "Prodotto modificato" << endl;
 }
 
+/*
 void cancellazione(int v[], int dim)
 {
     int cpos;
@@ -74,37 +73,42 @@ void cancellazione(int v[], int dim)
     
     v[cpos]=-1;
 }
+*/
 
 // funzione di ricerca
-int ricerca(int v[], int dim)
+int ricerca(prodotto v[], int dim)
 {
     string fval;
-    getline(cin,fval);
-    
-    for(int i=0; i<dim; i++)
+    cin >> fval;
+
+    for(int i = 0; i < dim; i++)
     {
-        if(v[i].nome==fval)
+        if(v[i].nome == fval)
             return i;
     }
+
     return -1;
 }
 
 
 int main()
 {
-	prodotto vector[20];
+	prodotto supermarket[20];
 	int dimension=20;
 	int fillcounter=0;
 	
-	for(int i=0;i<20;i++)
+	/*for(int i=0;i<20;i++)
 	{
 	    vector[i].nome=-1;
-	    vector[]
+	    vector[];
 	}
-	
+	*/
 
 	//cout<<"Un codice crud per lavorare con gli array"<<endl<<endl;
 	char option=0;
+	string value;
+	float price;
+	string category;
 	
 	do
 	{
@@ -123,7 +127,21 @@ int main()
 		{
 		    case 'c':
 		    case 'C':
-		        aggiunta(vector, fillcounter);
+		    	
+    			cout<<"Inserisci il nome del prodotto: ";
+    			getline(cin,value);
+    			cout<<endl;
+    
+    			
+    			cout<<"Inserisci il prezzo del prodotto: ";
+    			cin>>price;
+    			cout<<endl;
+    
+    			
+    			cout<<"Inserisci la categoria del prodotto: ";
+    			getline(cin,value);
+    			cout<<endl;
+		        aggiunta(supermarket, fillcounter,value,price,category);
 		        break;
 		    
 		    
@@ -134,9 +152,9 @@ int main()
     			for(int i=0;i<dimension;i++)
     			{
     			cout<<"Prodotto n "<<i<<endl;
-    			cout<<"Nome:"<<v[i].nome<<endl;
-    			cout<<"Prezzo:"<<v[i].prezzo<<endl;
-    			cout<<"Categoria:"<<v[i].categoria<<endl;
+    			cout<<"Nome:"<<supermarket[i].nome<<endl;
+    			cout<<"Prezzo:"<<supermarket[i].prezzo<<endl;
+    			cout<<"Categoria:"<<supermarket[i].categoria<<endl;
         		cout<<endl;
     			}
     
@@ -144,36 +162,29 @@ int main()
 		        
 		    case 'u':
 		    case 'U':
-		        modifica(vector, dimension);
+		        modifica(supermarket, dimension);
 		        break;
 		        
 		    case 'd':
 		    case 'D':
-		        cancellazione(vector, dimension);
+		        //cancellazione(supermarket, dimension);
 		        break;
 		        
 		        
 		    case 'f':
 		    case 'F':
 		    	cout<<"Inserisci il nome del prodotto posizione del del quale vuoi trovare: ";
-		        int research_result=ricerca(vector, dimension);
+		        int research_result=ricerca(supermarket, dimension);
 		        if(research_result==-1)
 		        {
-		        	cout<<"Prodotto non Ã¨ stato trovato";
+		        	cout<<"Prodotto non è stato trovato";
 				}
 		        cout<<"Posizione: "<<research_result<<endl;
 		        break;
-		    
-		        
-		    
 		}
-		
-		
-		
-		
-		
-		
 	}while(option!='s'||option!='S');
+	
 
     return 0;
+
 }
