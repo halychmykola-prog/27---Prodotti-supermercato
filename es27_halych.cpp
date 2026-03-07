@@ -11,191 +11,178 @@ struct prodotto
 };
 
 
-void aggiunta(prodotto v[], int &fillcounter, string nome, float prezzo, string categoria)
+void aggiunta(prodotto v[], int &fillcounter, prodotto n)
 {
-    if(fillcounter < 100)
-    {
-        v[fillcounter].nome = nome;
-        v[fillcounter].prezzo = prezzo;
-        v[fillcounter].categoria = categoria;
-
+        v[fillcounter]=n;
         fillcounter++;
-        cout << "Prodotto aggiunto" << endl;
-    }
-    else
-        cout << "Array pieno" << endl;
 }
 
-//modificare parametri della funzione deve essere inserita struct pronta con quale funzionra la aggiunta
-
-void visualizzazione(prodotto v[], int dim)
+string visualizzazione(prodotto v[], int dim)
 {
-    cout << endl;
-
-    for(int i = 0; i < dim; i++)
-    {
-        cout << "Nome del prodotto: " << v[i].nome << endl;
-        cout << "Prezzo del prodotto: " << v[i].prezzo << endl;
-        cout << "Categoria del prodotto: " << v[i].categoria << endl;
-        cout << endl;
-    }
+    string output;
+	for(int i=0;i<dim;i++){
+		output+=v[i].nome+"\t";
+		output+=v[i].categoria+"\t";
+		output+=to_string(v[i].prezzo)+"\n";
+	}
+	return output;
 }
 
-//devi usare string per fare output
 
-void modifica(prodotto v[], int dim)
+void modifica(prodotto v[], prodotto n, int g)
 {
-    int modpos;
-
-    do
-    {
-        cout << "Inserisci posizione del prodotto da modificare: ";
-        cin >> modpos;
-    }while(modpos >= dim || modpos < 0);
-
-    cout << "Nuovo nome: ";
-    cin >> v[modpos].nome;
-
-    cout << "Nuovo prezzo: ";
-    cin >> v[modpos].prezzo;
-
-    cout << "Nuova categoria: ";
-    cin >> v[modpos].categoria;
-
-    cout << "Prodotto modificato" << endl;
+    v[g]=n;
 }
 
 //deve essere inserito il nome del prodotto e poi deve essere cambiata info edl prodotto
 
-/*
-void cancellazione(int v[], int dim)
+
+void cancellazione(prodotto v[], int &fillcounter, int dim)
 {
-    int cpos;
-    do
+    for(int i=dim; i<fillcounter-1; i++)
     {
-        cout<<"Inserisci valore del posizione della variabile valore di quale vuoi cancellare: ";
-        cin>>cpos;
-    }while(cpos>99 || cpos<0);
-    
-    v[cpos]=-1;
+        v[i]=v[i+1]; 
+    }
+    fillcounter--;
 }
-*/
+
 
 //cancelazione deve cancellare prodotto e fare shift dei tutti prodotti a sinistra
 
-// funzione di ricerca
-int ricerca(prodotto v[], int dim)
-{
-    string fval;
-    cin >> fval;
 
-    for(int i = 0; i < dim; i++)
+int ricerca(prodotto v[], int dim, string bean)
+{
+    for (int i=0; i<dim; i++) 
     {
-        if(v[i].nome == fval)
+        if(v[i].nome == bean)
             return i;
     }
-
     return -1;
 }
 
-//ricerca: deve essere inserito nome e deve essere restituita la posizione del prodotto
+
 
 
 int main()
 {
 	prodotto supermarket[20];
+	prodotto prodhelp;
+	
 	int dimension=20;
 	int fillcounter=0;
 	
-	/*for(int i=0;i<20;i++)
-	{
-	    vector[i].nome=-1;
-	    vector[];
-	}
-	*/
+	int option=0;
+	bool control;
+	int gencounter;
+	int inthelp;
+	string stringhelp;
 
-	//cout<<"Un codice crud per lavorare con gli array"<<endl<<endl;
-	char option=0;
-	string value;
-	float price;
-	string category;
 	
 	do
 	{
+	    gencounter=0;
+	    control=false;
+	    inthelp=0;
+	    
+	    
 	    cout<<"Opzioni: "<<endl;
-		cout<<"   Per fare fare aggiunta, premi 'C'."<<endl<<"   Per visualizzare array, premi 'R'."<<endl<<"   Per fare modifica veloce di array premi 'U'."<<endl;
-		cout<<"   Per cancellare un elemento di array premi 'D'."<<endl<<"    Per fare ricerca veloce premi 'F'."<<endl;
-		cout<<"   Per uscire dal menu premi 'S'."<<endl<<endl;
+		cout<<"   Per fare fare aggiunta, premi '1'."<<endl<<"   Per visualizzare array, premi '2'."<<endl<<"   Per fare modifica veloce di array premi '3'."<<endl;
+		cout<<"   Per cancellare un elemento di array premi '4'."<<endl<<"   Per fare ricerca veloce premi '5'."<<endl;
+		cout<<"   Per uscire dal menu premi '0'."<<endl<<endl;
 		
 		cout<<"Quale operazione vuoi fare? Inserisci la lettera: ";
 		cin>>option;
-		
+		cin.ignore();
 		cout<<endl;
 		
 		
 		switch(option)
 		{
-		    case 'c':
-		    case 'C':
-		    	
-    			cout<<"Inserisci il nome del prodotto: ";
-    			getline(cin,value);
-    			cout<<endl;
-    
-    			
-    			cout<<"Inserisci il prezzo del prodotto: ";
-    			cin>>price;
-    			cout<<endl;
-    
-    			
-    			cout<<"Inserisci la categoria del prodotto: ";
-    			getline(cin,value);
-    			cout<<endl;
-		        aggiunta(supermarket, fillcounter,value,price,category);
-		        break;
-		    
-		    
-		    case 'r':
-		    case 'R':
-		    	cout<<endl;
-		    	cout<<"Prodotti visualizzati:"<<endl;
-    			for(int i=0;i<dimension;i++)
-    			{
-    			cout<<"Prodotto n "<<i<<endl;
-    			cout<<"Nome:"<<supermarket[i].nome<<endl;
-    			cout<<"Prezzo:"<<supermarket[i].prezzo<<endl;
-    			cout<<"Categoria:"<<supermarket[i].categoria<<endl;
-        		cout<<endl;
-    			}
-    
-		        break;
-		        
-		    case 'u':
-		    case 'U':
-		        modifica(supermarket, dimension);
-		        break;
-		        
-		    case 'd':
-		    case 'D':
-		        //cancellazione(supermarket, dimension);
-		        break;
-		        
-		        
-		    case 'f':
-		    case 'F':
-		    	cout<<"Inserisci il nome del prodotto posizione del del quale vuoi trovare: ";
-		        int research_result=ricerca(supermarket, dimension);
-		        if(research_result==-1)
+		    case 1:
+		        if(fillcounter<20)
 		        {
-		        	cout<<"Prodotto non è stato trovato";
-				}
-		        cout<<"Posizione: "<<research_result<<endl;
-		        break;
-		}
-	}while(option!='s'||option!='S');
+		            cout<<"Inserisci il nome ";
+		            getline(cin,prodhelp.nome);
+		            cout<<"Inserisci la categoria ";
+		            getline(cin,prodhelp.categoria);
+	        	    cout<<"Inserisci il prezzo ";
+	        	    cin>>prodhelp.prezzo;
+		            aggiunta(supermarket, fillcounter,prodhelp);
+		            cout<<endl;
+		            break;
+		        }
+		        else
+		        {
+		            cout<<"Array e' pieno"<<endl;
+		            break;
+		        }
+		        
+		        
+		    case 2:
+		        if(fillcounter>0)
+		    	    cout<<visualizzazione(supermarket,fillcounter)<<endl;
+		    	else
+		    	    cout<<"Array e' vuoto"<<endl<<endl;
+		        break;	
+		        
+		    case 3:
+		        cout<<"Inserisci il nome del prodotto da modificare: ";
+                getline(cin, stringhelp);
+                inthelp=ricerca(supermarket, fillcounter, stringhelp);
+                cout<<endl;
+                
+                if(inthelp!=-1) 
+                {
+                    cout<<"Nuovo Nome: "; 
+                    getline(cin, prodhelp.nome);
+                    cout<<"Nuova Categoria: "; 
+                    getline(cin, prodhelp.categoria);
+                    cout<<"Nuovo Prezzo: "; 
+                    cin>>prodhelp.prezzo;
+                    modifica(supermarket, prodhelp, inthelp);
+                    cout<<"Prodotto modificato!"<<endl<<endl;
+                    cin.ignore();
+                    break;
+                } 
+                else
+                {
+                    cout<<"Prodotto non trovato."<<endl;
+                    break;
+                }
+
+		    case 4:
+		        cout<<"Nome del prodotto da cancellare: ";
+                getline(cin, stringhelp);
+                cout<<endl;
+                inthelp=ricerca(supermarket, fillcounter, stringhelp);
+                if(inthelp!=-1)
+                {
+                    cancellazione(supermarket, fillcounter, inthelp);
+                    cout<<"Prodotto eliminato con successo!"<<endl;
+                } 
+                else
+                    cout<<"Prodotto non trovato."<<endl;
+                    
+                cout<<endl;
+                break;
+		        
+		        
+		    case 5:
+		    	cout<<"Nome da cercare: ";
+                getline(cin, stringhelp);
+                cout<<endl;
+                inthelp=ricerca(supermarket, fillcounter, stringhelp);
+                if(inthelp != -1) 
+                    cout<<"Trovato in posizione: "<<inthelp+1<<endl;
+                else 
+                    cout<<"Non trovato."<<endl;
+                cout<<endl;
+                break;
+	    }
+	}while(option!=0);
 	
+	cout<<"Lavoro e' finito"<<endl;
 
     return 0;
 
 }
-
