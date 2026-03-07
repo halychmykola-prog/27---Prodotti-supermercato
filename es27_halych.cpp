@@ -10,17 +10,23 @@ struct prodotto
 	
 };
 
-
+/*
+nel array di struct con contatore globale viene messa struct d'appogio dalla main. Contatore globale incrementa.
+*/
 void aggiunta(prodotto v[], int &fillcounter, prodotto n)
 {
         v[fillcounter]=n;
         fillcounter++;
 }
 
+/*
+tutte struct vengono uniti in una stringa che viene restituita con return
+*/
 string visualizzazione(prodotto v[], int dim)
 {
     string output;
-	for(int i=0;i<dim;i++){
+	for(int i=0;i<dim;i++)
+	{
 		output+=v[i].nome+"\t";
 		output+=v[i].categoria+"\t";
 		output+=to_string(v[i].prezzo)+"\n";
@@ -29,14 +35,18 @@ string visualizzazione(prodotto v[], int dim)
 }
 
 
+/*
+nel array di struct con contatore speciale dal main viene messa struct d'appogio
+*/
 void modifica(prodotto v[], prodotto n, int g)
 {
     v[g]=n;
 }
 
-//deve essere inserito il nome del prodotto e poi deve essere cambiata info edl prodotto
 
-
+/*
+tutte struct di array vengono spostati a sinistra iniziando dalla posizione di (struct da eliminare)+1. Contatore globale si diminuiusce
+*/
 void cancellazione(prodotto v[], int &fillcounter, int dim)
 {
     for(int i=dim; i<fillcounter-1; i++)
@@ -47,9 +57,10 @@ void cancellazione(prodotto v[], int &fillcounter, int dim)
 }
 
 
-//cancelazione deve cancellare prodotto e fare shift dei tutti prodotti a sinistra
 
-
+/*
+con stringa bean(stringa messa dal'utente) faccio comparazione per trovare la posizione del prodotto con lo stesso nome
+*/
 int ricerca(prodotto v[], int dim, string bean)
 {
     for (int i=0; i<dim; i++) 
@@ -65,23 +76,27 @@ int ricerca(prodotto v[], int dim, string bean)
 
 int main()
 {
+    //dichiarazione struct
 	prodotto supermarket[20];
 	prodotto prodhelp;
 	
+	//dichiarazione contatori
 	int dimension=20;
 	int fillcounter=0;
+
 	
+	//dichiarazione variabili d'appoggio
 	int option=0;
-	bool control;
-	int gencounter;
+
 	int inthelp;
 	string stringhelp;
 
 	
 	do
 	{
-	    gencounter=0;
-	    control=false;
+	    /*
+	    Si annula inthelp perche' e' una veriabile d'appoggio universale.
+	    */
 	    inthelp=0;
 	    
 	    
@@ -98,6 +113,9 @@ int main()
 		
 		switch(option)
 		{
+		    /*
+		    Riempisco struc d'appoggio per copiarlo nel array di struct con funzione aggiunta
+		    */
 		    case 1:
 		        if(fillcounter<20)
 		        {
@@ -117,7 +135,10 @@ int main()
 		            break;
 		        }
 		        
-		        
+		    
+		    /*
+		    Cout della stringa fatta nella funzione
+		    */    
 		    case 2:
 		        if(fillcounter>0)
 		    	    cout<<visualizzazione(supermarket,fillcounter)<<endl;
@@ -125,6 +146,12 @@ int main()
 		    	    cout<<"Array e' vuoto"<<endl<<endl;
 		        break;	
 		        
+		        
+		        
+		    /*
+		    Con funzione ricerca trovo posizione del prodotto con nome inserito. Con algoritmo di case 1 riempisco struct d'appoggio.
+		    Che deve essere inserito nel array
+		    */
 		    case 3:
 		        cout<<"Inserisci il nome del prodotto da modificare: ";
                 getline(cin, stringhelp);
@@ -149,7 +176,11 @@ int main()
                     cout<<"Prodotto non trovato."<<endl;
                     break;
                 }
-
+            
+            
+            /*
+            con ricerca trovo posizione del prodotto nome di cui inserisco e poi faccio spostamento(shift) sulla posizione trovata
+            */
 		    case 4:
 		        cout<<"Nome del prodotto da cancellare: ";
                 getline(cin, stringhelp);
@@ -166,7 +197,11 @@ int main()
                 cout<<endl;
                 break;
 		        
-		        
+		    
+		    /*
+		    Inserisco nome che sara messo come parametro nella funzione ricerca che trova posizione facendo comparazione dei nomi.
+		    Comparando stringa inserita dal'utente e nomi presenti nel array di struct
+		    */    
 		    case 5:
 		    	cout<<"Nome da cercare: ";
                 getline(cin, stringhelp);
